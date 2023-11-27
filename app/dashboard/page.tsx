@@ -4,6 +4,7 @@ import Dropzone from "@/components/Dropzone";
 import {collection, getDocs} from "@firebase/firestore";
 import {db} from "@/firebase";
 import {FileType} from "@/typings";
+import TableWrapper from '@/components/table/TableWrapper';
 
 const Dashboard = async ({}) => {
   const {userId} = auth();
