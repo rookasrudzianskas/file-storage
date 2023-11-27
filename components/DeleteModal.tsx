@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client";
 
 import { Copy } from "lucide-react"
@@ -14,16 +15,34 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { useAppStore } from "@/store/store";
+import {useUser} from "@clerk/nextjs";
+import {deleteObject, ref} from "@firebase/storage";
+import {db, storage} from "@/firebase";
+import {deleteDoc, doc} from "@firebase/firestore";
 
 export function DeleteModal() {
-
+  const { user } = useUser();
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useAppStore(state => [state.isDeleteModalOpen, state.setIsDeleteModalOpen]);
   const [isRenameModalOpen, setIsRenameModalOpen] = useAppStore(state => [state.isRenameModalOpen, state.setIsRenameModalOpen]);
   const [fileId, setFileId] = useAppStore(state => [state.fileId, state.setFileId]);
   const [filename, setFilename] = useAppStore(state => [state.filename, state.setFilename]);
 
   const deleteFile = async () => {
+    if(!user || !fileId) return;
+    console.log('FILE ID', fileId);
+    const fileRef = ref(storage, `users/${user.id}/files/${fileId.id}`);
 
+    try {
+      deleteObject(fileRef).then(async () => {
+        deleteDoc(doc(db, "users", user.id, "files", fileId.id)).then(() => {
+          console.log("Document successfully deleted!");
+        })
+      }).finally(() => {
+        setIsDeleteModalOpen(false);
+      })
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return (
