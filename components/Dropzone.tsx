@@ -3,9 +3,11 @@
 import React, {useState} from 'react';
 import DropzoneComponent from 'react-dropzone'
 import {cn} from "@/lib/utils";
+import {useUser} from "@clerk/nextjs";
 
 const Dropzone = ({}) => {
   const maxSize = 20971520;
+  const {isLoaded, isSignedIn, user} = useUser();
   const [loading, setLoading] = useState(false);
   const onDrop = (acceptedFiles: File[]) => {
     acceptedFiles.forEach((file) => {
@@ -22,6 +24,8 @@ const Dropzone = ({}) => {
 
   const uploadPost = async (selectedFile: File) => {
     if(loading) return;
+    if(!user) return;
+
     setLoading(true);
 
     setLoading(false);
