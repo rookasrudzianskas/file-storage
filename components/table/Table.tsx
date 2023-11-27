@@ -19,6 +19,7 @@ import {FileType} from "@/typings";
 import {Button} from "@/components/ui/button";
 import {PencilIcon, TrashIcon} from "lucide-react";
 import {useAppStore} from "@/store/store";
+import {DeleteModal} from "@/components/DeleteModal";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -79,6 +80,7 @@ export function DataTable<TData, TValue>({
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
               >
+                <DeleteModal />
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id}>
                     {cell.column.id === 'timestamp' ? (

@@ -1,3 +1,5 @@
+"use client";
+
 import { Copy } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -11,45 +13,49 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { useAppStore } from "@/store/store";
 
 export function DeleteModal() {
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useAppStore(state => [state.isDeleteModalOpen, state.setIsDeleteModalOpen]);
+  const [isRenameModalOpen, setIsRenameModalOpen] = useAppStore(state => [state.isRenameModalOpen, state.setIsRenameModalOpen]);
+  const [fileId, setFileId] = useAppStore(state => [state.fileId, state.setFileId]);
+  const [filename, setFilename] = useAppStore(state => [state.filename, state.setFilename]);
+
+  const deleteFile = async (somethng: boolean) => {
+
+  }
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant="outline">Share</Button>
-      </DialogTrigger>
+    <Dialog open={isDeleteModalOpen} onOpenChange={(isOpen) => setIsDeleteModalOpen(isOpen)}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle>Share link</DialogTitle>
+          <DialogTitle>Are you sure you want to delete?</DialogTitle>
           <DialogDescription>
-            Anyone who has this link will be able to view this.
+            This action cannot be undone. This will permanently delete the file.
           </DialogDescription>
         </DialogHeader>
-        <div className="flex items-center space-x-2">
-          <div className="grid flex-1 gap-2">
-            <Label htmlFor="link" className="sr-only">
-              Link
-            </Label>
-            <Input
-              id="link"
-              defaultValue="https://ui.shadcn.com/docs/installation"
-              readOnly
-            />
-          </div>
-          <Button type="submit" size="sm" className="px-3">
-            <span className="sr-only">Copy</span>
-            <Copy className="h-4 w-4" />
+        <div className="flex space-x-2 py-3">
+          <Button
+            size={"sm"}
+            className="px-3 flex-1"
+            variant={"ghost"}
+            onClick={() => setIsDeleteModalOpen(false)}
+          >
+            <span className="sr-only">Cancel</span>
+            <span>Cancel</span>
+          </Button>
+
+          <Button
+            type={"submit"}
+            size={"sm"}
+            className="px-3 flex-1"
+            onClick={() => deleteFile(false)}
+          >
+            <span className="sr-only">Delete</span>
+            <span>Delete</span>
           </Button>
         </div>
-        <DialogFooter className="sm:justify-start">
-          <DialogClose asChild>
-            <Button type="button" variant="secondary">
-              Close
-            </Button>
-          </DialogClose>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   )
