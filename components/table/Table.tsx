@@ -111,7 +111,7 @@ export function DataTable<TData, TValue>({
                 <TableCell key={(row.original as FileType).id}>
                   <Button
                     variant={"outline"}
-                    onClick={() => openDeleteModal(row.original as FileType)}
+                    onClick={() => openDeleteModal(row.original as string)}
                   >
                     <TrashIcon size={20} />
                   </Button>
