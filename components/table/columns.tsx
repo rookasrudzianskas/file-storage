@@ -5,6 +5,7 @@ import {FileType} from "@/typings";
 import prettyBytes from "pretty-bytes"
 import Link from "next/link";
 import { FileIcon, defaultStyles } from 'react-file-icon';
+import {COLOR_EXTENSION_MAP} from "@/constant";
 export const columns: ColumnDef<FileType>[] = [
   {
     accessorKey: "type",
