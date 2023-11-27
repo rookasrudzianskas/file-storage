@@ -22,7 +22,7 @@ export function DeleteModal() {
   const [fileId, setFileId] = useAppStore(state => [state.fileId, state.setFileId]);
   const [filename, setFilename] = useAppStore(state => [state.filename, state.setFilename]);
 
-  const deleteFile = async (somethng: boolean) => {
+  const deleteFile = async () => {
 
   }
 
@@ -50,7 +50,7 @@ export function DeleteModal() {
             type={"submit"}
             size={"sm"}
             className="px-3 flex-1"
-            onClick={() => deleteFile(false)}
+            onClick={() => deleteFile()}
           >
             <span className="sr-only">Delete</span>
             <span>Delete</span>
