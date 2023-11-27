@@ -5,12 +5,12 @@ import Image from "next/image";
 const Header = ({}) => {
   return (
     <header className="flex items-center justify-between">
-      <Link href={'/'}>
-        <div>
+      <Link href={'/'} className="flex items-center space-x-2">
+        <div className="bg-[#0160FE] w-fit">
           <Image
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Dropbox_Icon.svg/2202px-Dropbox_Icon.svg.png"
             alt="logo"
-            className="invert"
+            // className="invert"
             height={50}
             width={50}
           />
