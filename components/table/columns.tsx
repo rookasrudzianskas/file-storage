@@ -4,8 +4,22 @@ import { ColumnDef } from "@tanstack/react-table"
 import {FileType} from "@/typings";
 import prettyBytes from "pretty-bytes"
 import Link from "next/link";
-
+import { FileIcon, defaultStyles } from 'react-file-icon';
 export const columns: ColumnDef<FileType>[] = [
+  {
+    accessorKey: "type",
+    header: "type",
+    cell: ({ renderValue, ...props }) => {
+      const type = renderValue() as string;
+      const extension: string = type.split("/")[1];
+      return (
+        <div className="w-10">
+          {/* @ts-ignore */}
+          <FileIcon extension={extension} labelColor={COLOR_EXTENSION_MAP[extension]} {...defaultStyles[extension]} />
+        </div>
+      )
+    }
+  },
   {
     accessorKey: "filename",
     header: "Filename",
