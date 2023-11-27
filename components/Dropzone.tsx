@@ -6,6 +6,19 @@ import {cn} from "@/lib/utils";
 
 const Dropzone = ({}) => {
   const maxSize = 20971520;
+  const onDrop = (acceptedFiles: File[]) => {
+    acceptedFiles.forEach((file) => {
+      const reader = new FileReader();
+      reader.onabort = () => console.log('file reading was aborted');
+      reader.onerror = () => console.log('file reading has failed');
+
+      reader.onload = async () => {
+        await uploadPost(file);
+      };
+      reader.readAsArrayBuffer(file);
+    });
+  }
+
   return (
     <DropzoneComponent minSize={0} maxSize={maxSize} onDrop={acceptedFiles => console.log(acceptedFiles)}>
       {({getRootProps, getInputProps, isDragActive, isDragReject, fileRejections}) => {
