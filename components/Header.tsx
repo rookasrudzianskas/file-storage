@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
+import {SignedOut, SignInButton, UserButton} from "@clerk/nextjs";
 
 const Header = ({}) => {
   return (
@@ -17,6 +18,14 @@ const Header = ({}) => {
         </div>
         <h1 className="font-bold text-xl">Dropbox</h1>
       </Link>
+
+      <div className="px-5 flex space-x-2 items-center">
+
+        <UserButton afterSignOutUrl="/" />
+        <SignedOut>
+          <SignInButton mode={'modal'} />
+        </SignedOut>
+      </div>
     </header>
   );
 };
