@@ -19,11 +19,19 @@ const Dashboard = async ({}) => {
     size: doc.data().size,
   }))
 
-  console.log(skeletonFiles);
-
   return (
-    <div>
+    <div className="border-t">
       <Dropzone/>
+
+      <section className="container space-y-5">
+        <h2 className="font-bold">All Files</h2>
+
+        <div className="">
+          <TableWrapper
+            skeletonFiles={skeletonFiles}
+          />
+        </div>
+      </section>
     </div>
   );
 };
