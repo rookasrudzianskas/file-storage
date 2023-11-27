@@ -1,11 +1,12 @@
 "use client";
 
-import React from 'react';
+import React, {useState} from 'react';
 import DropzoneComponent from 'react-dropzone'
 import {cn} from "@/lib/utils";
 
 const Dropzone = ({}) => {
   const maxSize = 20971520;
+  const [loading, setLoading] = useState(false);
   const onDrop = (acceptedFiles: File[]) => {
     acceptedFiles.forEach((file) => {
       const reader = new FileReader();
@@ -17,6 +18,13 @@ const Dropzone = ({}) => {
       };
       reader.readAsArrayBuffer(file);
     });
+  }
+
+  const uploadPost = async (selectedFile: File) => {
+    if(loading) return;
+    setLoading(true);
+
+    setLoading(false);
   }
 
   return (
