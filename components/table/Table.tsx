@@ -18,6 +18,7 @@ import {
 import {FileType} from "@/typings";
 import {Button} from "@/components/ui/button";
 import {PencilIcon, TrashIcon} from "lucide-react";
+import {useAppStore} from "@/store/store";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -34,7 +35,10 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
   })
 
-
+  const [fileId, setFileId] = useAppStore(state => [state.fileId, state.setFileId]);
+  const [filename, setFilename] = useAppStore(state => [state.filename, state.setFilename]);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useAppStore(state => [state.isDeleteModalOpen, state.setIsDeleteModalOpen]);
+  const [isRenameModalOpen, setIsRenameModalOpen] = useAppStore(state => [state.isRenameModalOpen, state.setIsRenameModalOpen]);
 
   const openDeleteModal = (fileId: string) => {
     setFileId(fileId);
@@ -89,10 +93,10 @@ export function DataTable<TData, TValue>({
                       </div>
                     ) : cell.column.id === 'filename' ? (
                       <p
-                        // onClick={() => openRenameModal(
-                        //   (row.original as FileType).id,
-                        //   (row.original as FileType).filename,
-                        // )}
+                        onClick={() => openRenameModal(
+                          (row.original as FileType).id,
+                          (row.original as FileType).filename,
+                        )}
                         className="underline flex items-center text-blue-500 hover:cursor-pointer"
                       >
                         {cell.getValue() as string}
@@ -107,7 +111,7 @@ export function DataTable<TData, TValue>({
                 <TableCell key={(row.original as FileType).id}>
                   <Button
                     variant={"outline"}
-                    // onClick={() => openDeleteModal(row.original as FileType)}
+                    onClick={() => openDeleteModal(row.original as FileType)}
                   >
                     <TrashIcon size={20} />
                   </Button>
